@@ -1,0 +1,13 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Easily setup and play sociables with your friends on a simple website",
+  "main": "index.js",
+  "repository": "https://github.com/colefranz/sociables",
+  "author": "Cole Franz",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.2",
+    "socket.io": "^2.0.4"
+  }
+}

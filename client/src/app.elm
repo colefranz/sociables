@@ -1,11 +1,10 @@
 import Html exposing (..)
-import Html.Attributes exposing (..)
 import Html.Events exposing (..)
 import WebSocket
 
 
 serverAddress : String
-serverAddress = "http://localhost:3000"
+serverAddress = "ws://localhost:3000/"
 
 
 main : Program Never Model Msg

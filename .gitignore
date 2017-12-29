@@ -4,3 +4,6 @@ repl-temp-*
 
 # node generated files
 node_modules
+
+# vscode settings
+settings.json

@@ -1,10 +1,7 @@
 import Html exposing (..)
 import Html.Events exposing (..)
-import WebSocket
-
-
-serverAddress : String
-serverAddress = "ws://localhost:3000/"
+import Html.Attributes exposing (placeholder, type_, value)
+import EventHelpers exposing (..)
 
 
 main : Program Never Model Msg
@@ -21,7 +18,7 @@ main =
 
 type alias Model =
   { input : String
-  , messages : List String
+  , players : List String
   }
 
 
@@ -34,28 +31,25 @@ init =
 
 type Msg
   = Input String
-  | Send
-  | NewMessage String
+  | AddPlayer
 
 
 update : Msg -> Model -> (Model, Cmd Msg)
-update msg {input, messages} =
+update msg {input, players} =
   case msg of
     Input newInput ->
-      (Model newInput messages, Cmd.none)
+      (Model newInput players, Cmd.none)
 
-    Send ->
-      (Model "" messages, WebSocket.send serverAddress input)
-
-    NewMessage str ->
-      (Model input (str :: messages), Cmd.none)
+    AddPlayer ->
+      (Model "" (input :: players), Cmd.none)
 
 
 -- SUBSCRIPTIONS
 
+
 subscriptions : Model -> Sub Msg
 subscriptions model =
-  WebSocket.listen serverAddress NewMessage
+    Sub.none
 
 
 -- VIEW
@@ -63,9 +57,13 @@ subscriptions model =
 view : Model -> Html Msg
 view model =
   div []
-    [ div [] (List.map viewMessage model.messages)
-    , input [onInput Input] []
-    , button [onClick Send] [text "Send"]
+    [ div [] (List.map viewMessage model.players)
+    , input [ type_ "text"
+            , value model.input
+            , placeholder "Player Name"
+            , onEnter AddPlayer
+            , onInput Input ] []
+    , button [ onClick AddPlayer ] [ text "+" ]
     ]
 
 

@@ -1,7 +1,6 @@
 module CardsView exposing (..)
 
 import Card exposing (..)
-import EventHelpers exposing (..)
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
@@ -13,27 +12,17 @@ cards : Model -> Html Msg
 cards model =
     div [ class "cards" ]
         -- style this so that a stack of cards seems to form
-        [ viewCard (List.head model.cards) "facedown" DrawCard
-        , viewCard (List.head model.discards) "faceup" NoOp
+        [ div [ class "deck facedown" ] (List.map viewCard model.cards)
+        , div [ class "deck faceup" ] (List.map viewCard model.discards)
         ]
 
 
-cardFront : Maybe Card -> Html msg
-cardFront maybeCard =
-    case maybeCard of
-        Just card ->
-            div [ class card.suit ] [ text card.face ]
-
-        Nothing ->
-            div [] []
-
-
-viewCard : Maybe Card -> String -> Msg -> Html Msg
-viewCard maybeCard orientation msg =
+viewCard : Card -> Html Msg
+viewCard card =
     div
-        [ class ("card " ++ orientation)
-        , onClick msg
+        [ class ("card")
+        , onClick DrawCard
         ]
-        [ cardFront maybeCard
-        , div [ class "backside" ] []
+        -- potentially give each a front and a back for flipping
+        [ div [ class card.suit ] [ p [] [ text card.face ] ]
         ]

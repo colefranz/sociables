@@ -30,7 +30,7 @@ update msg oldModel =
                     List.drop 1 oldModel.cards
 
                 newDiscards =
-                    List.take 1 oldModel.cards ++ oldModel.discards
+                    oldModel.discards ++ List.take 1 oldModel.cards
             in
                 { oldModel | cards = newCards, discards = newDiscards } ! []
 

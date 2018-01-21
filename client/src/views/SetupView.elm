@@ -4,7 +4,7 @@ import Model exposing (Setup)
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
-import EventHelpers exposing (..)
+import EventHelpers exposing (onEnter)
 import Msgs exposing (..)
 
 

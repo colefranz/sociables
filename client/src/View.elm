@@ -7,12 +7,14 @@ import EventHelpers exposing (..)
 import Model exposing (Model)
 import Msgs exposing (..)
 import Card exposing (..)
+import RulesView exposing (rules)
 
 
 view : Model -> Html Msg
 view model =
     div []
-        [ div [ class "player-setup" ]
+        [ rules
+        , div [ class "player-setup" ]
             [ input
                 [ type_ "text"
                 , value model.setup.input

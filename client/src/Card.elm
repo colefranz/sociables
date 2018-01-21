@@ -7,7 +7,7 @@ type alias Face =
 
 enumFace : List Face
 enumFace =
-    [ "One"
+    [ "Ace"
     , "Two"
     , "Three"
     , "Four"
@@ -20,7 +20,6 @@ enumFace =
     , "Jack"
     , "Queen"
     , "King"
-    , "Ace"
     ]
 
 

@@ -8,28 +8,14 @@ import Model exposing (Model)
 import Msgs exposing (..)
 import Card exposing (..)
 import RulesView exposing (rules)
+import SetupView exposing (playerSetup)
 
 
 view : Model -> Html Msg
 view model =
-    div []
+    div [ id "elm-main" ]
         [ rules
-        , div [ class "player-setup" ]
-            [ input
-                [ type_ "text"
-                , value model.setup.input
-                , placeholder "Player Name"
-                , onEnter AddPlayer
-                , autofocus True
-                , onInput AddPlayerInputChange
-                ]
-                []
-            , div
-                [ class "button"
-                , onClick AddPlayer
-                ]
-                [ text "+" ]
-            ]
+        , playerSetup model.setup
         , div [ class "players" ] (List.map viewMessage model.setup.players)
         , div [ class "cards" ]
             -- style this so that a stack of cards seems to form

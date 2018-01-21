@@ -24,7 +24,8 @@ The following environment is required for proper setup:
 * Elm (v0.18.0)
 
 One time setup:
-* `npm install -g webpack-dev-server`
+* `yarn global install webpack-dev-server`
+* `yarn global install elm-format`
 * Navigate to `client/`
 * `yarn install`
 

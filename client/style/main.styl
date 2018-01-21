@@ -1,0 +1,99 @@
+$gray = #CBC0D3
+$mist = #DEE2FF
+$pink = #EFD3D7
+$blush = #FEEAFA
+$dark = #8E9AAF
+
+*
+  box-sizing: border-box
+
+body, html
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  padding: 0px
+  margin: 0px
+  background: $dark
+
+#main
+  position: absolute
+  top: 0
+  right: 0
+  bottom: 0
+  left: 0
+  width: 800px
+  height: 500px
+  margin: auto
+  max-width: 95%
+  max-height: 95%
+  background: $blush
+  border-radius: 12px
+  padding: 10px
+
+.button
+  background: $mist
+  color: $dark
+  width: 30px
+  height: 30px
+  line-height: 30px
+  text-align: center
+  cursor: pointer
+
+input
+  background: $mist
+  color: $dark
+  outline: none
+  box-shadow: none
+  border: none
+  padding: 5px
+  &::-ms-clear
+    display: none
+
+  &:active
+    outline: none
+
+.player-setup
+  display: flex
+
+.cards
+  position: relative
+  width: 120px
+
+  .card
+    position: absolute
+    display: inline-block
+    width: 50px
+    height: 100px
+    background: $pink
+    color: $gray
+    line-height: 100px
+    text-align: center
+    user-select: none
+    vertical-align: top
+
+    .backside
+      transform: rotateY(180deg)
+      transform-style: preserve-3d
+
+    &.faceup
+      // animate on creation from left to right
+      animation: 1s flipCard ease-in
+      left: 60px
+
+    &.facedown
+      transform: rotateY(180deg)
+      transform-style: preserve-3d
+
+@keyframes flipCard {
+  from {
+    left: 0
+    transform: rotateY(180deg)
+  }
+
+  to {
+    left: 60px
+    transform: rotateY(0deg)
+  }
+}

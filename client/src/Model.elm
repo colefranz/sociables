@@ -1,15 +1,24 @@
 module Model exposing (..)
 
+import Card exposing (..)
+
+
 type alias Model =
-  { setup: Setup
-  }
+    { setup : Setup
+    , cards : List Card
+    , discards : List Card
+    }
+
 
 type alias Setup =
-  { input : String
-  , players : List String
-  }
+    { input : String
+    , players : List String
+    }
+
 
 initialModel : Model
 initialModel =
     { setup = Setup "" []
+    , cards = deckOfCards
+    , discards = []
     }

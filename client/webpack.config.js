@@ -17,6 +17,7 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
+        exclude: /dist/,
         query: {
           presets: ['env'],
           plugins: []

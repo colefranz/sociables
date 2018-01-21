@@ -7,3 +7,6 @@ node_modules
 
 # vscode settings
 settings.json
+
+compiled files
+dist/

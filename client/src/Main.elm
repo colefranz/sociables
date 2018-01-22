@@ -7,7 +7,7 @@ import View exposing (view)
 import Update exposing (update)
 import Random exposing (generate)
 import Random.List exposing (shuffle)
-import Card exposing (deckOfCards)
+import CardModel exposing (deckOfCards)
 
 
 main : Program Never Model Msg

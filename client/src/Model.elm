@@ -1,6 +1,6 @@
 module Model exposing (..)
 
-import Card exposing (..)
+import CardModel exposing (..)
 
 
 type alias Model =

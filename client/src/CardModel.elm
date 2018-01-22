@@ -1,4 +1,4 @@
-module Card exposing (..)
+module CardModel exposing (..)
 
 
 type alias Face =

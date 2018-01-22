@@ -1,6 +1,6 @@
 module Rules exposing (..)
 
-import Card exposing (Face)
+import CardModel exposing (Face)
 
 
 type alias Rule =

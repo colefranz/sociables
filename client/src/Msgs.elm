@@ -1,6 +1,6 @@
 module Msgs exposing (..)
 
-import Card exposing (Card)
+import CardModel exposing (Card)
 
 
 type Msg

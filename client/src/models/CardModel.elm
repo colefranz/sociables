@@ -55,7 +55,7 @@ deckOfCards =
 
 suits : Suit -> List Card
 suits suit =
-    List.map (faces suit) (List.range 1 13)
+    List.map (faces suit) (List.range 0 12)
 
 
 faces : Suit -> Face -> Card

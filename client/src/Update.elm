@@ -21,8 +21,11 @@ update msg oldModel =
 
         AddPlayer ->
             let
+                oldSetup =
+                    oldModel.setup
+
                 newSetup =
-                    Setup "" (oldModel.setup.input :: oldModel.setup.players)
+                    { oldSetup | input = "", players = oldSetup.players ++ [ oldSetup.input ] }
             in
                 { oldModel | setup = newSetup } ! []
 

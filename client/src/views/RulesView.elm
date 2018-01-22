@@ -3,7 +3,7 @@ module RulesView exposing (rules)
 import Html exposing (..)
 import Msgs exposing (..)
 import Html.Attributes exposing (..)
-import Rules exposing (Rule, rulesList)
+import RulesModel exposing (Rule, rulesList)
 
 
 rules : Html Msg

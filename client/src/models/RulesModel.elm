@@ -1,4 +1,4 @@
-module Rules exposing (..)
+module RulesModel exposing (..)
 
 import CardModel exposing (Face)
 

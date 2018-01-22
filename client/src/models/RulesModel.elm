@@ -1,10 +1,10 @@
 module RulesModel exposing (..)
 
-import CardModel exposing (Face)
+import CardModel exposing (FaceName)
 
 
 type alias Rule =
-    { cardFace : Face
+    { cardFace : FaceName
     , description : String
     }
 

@@ -24,5 +24,5 @@ viewCard card =
         , onClick DrawCard
         ]
         -- potentially give each a front and a back for flipping
-        [ div [ class card.suit ] [ p [] [ text card.face ] ]
+        [ div [ class card.suit ] [ p [] [ text (getFaceName card.face) ] ]
         ]

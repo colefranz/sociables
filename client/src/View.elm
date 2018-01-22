@@ -12,7 +12,7 @@ import CardsView exposing (cards)
 view : Model -> Html Msg
 view model =
     div [ id "elm-main" ]
-        [ rules
+        [ rules model
         , playerSetup model.setup
         , div [ class "players" ] (List.map viewMessage model.setup.players)
         , cards model

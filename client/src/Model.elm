@@ -1,12 +1,14 @@
 module Model exposing (..)
 
 import CardModel exposing (..)
+import RulesModel exposing (initialRulesList, Rule)
 
 
 type alias Model =
     { setup : Setup
     , cards : List Card
     , discards : List Card
+    , rules : List Rule
     }
 
 
@@ -21,4 +23,5 @@ initialModel =
     { setup = Setup "" []
     , cards = deckOfCards
     , discards = []
+    , rules = initialRulesList
     }

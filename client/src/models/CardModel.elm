@@ -7,23 +7,22 @@ type alias FaceName =
     String
 
 
-enumFaceName : Array FaceName
+enumFaceName : List FaceName
 enumFaceName =
-    fromList
-        [ "Ace"
-        , "Two"
-        , "Three"
-        , "Four"
-        , "Five"
-        , "Six"
-        , "Seven"
-        , "Eight"
-        , "Nine"
-        , "Ten"
-        , "Jack"
-        , "Queen"
-        , "King"
-        ]
+    [ "Ace"
+    , "Two"
+    , "Three"
+    , "Four"
+    , "Five"
+    , "Six"
+    , "Seven"
+    , "Eight"
+    , "Nine"
+    , "Ten"
+    , "Jack"
+    , "Queen"
+    , "King"
+    ]
 
 
 type alias Face =
@@ -68,7 +67,7 @@ getFaceName : Face -> FaceName
 getFaceName face =
     let
         maybeFaceName =
-            Array.get face (enumFaceName)
+            Array.get face (fromList enumFaceName)
     in
         case maybeFaceName of
             Just faceName ->
@@ -76,3 +75,8 @@ getFaceName face =
 
             Nothing ->
                 ""
+
+
+blankCard : Card
+blankCard =
+    Card -1 ""

@@ -1,6 +1,6 @@
-module SetupView exposing (..)
+module PlayersView exposing (..)
 
-import Model exposing (Setup)
+import Model exposing (Model)
 import Html exposing (..)
 import Html.Events exposing (..)
 import Html.Attributes exposing (..)
@@ -8,12 +8,12 @@ import EventHelpers exposing (onEnter)
 import Msgs exposing (..)
 
 
-playerSetup : Setup -> Html Msg
-playerSetup setup =
+addPlayerInput : Model -> Html Msg
+addPlayerInput model =
     div [ class "player-setup" ]
         [ input
             [ type_ "text"
-            , value setup.input
+            , value model.playerInput
             , placeholder "Player Name"
             , onEnter AddPlayer
             , autofocus True
@@ -26,3 +26,13 @@ playerSetup setup =
             ]
             [ text "+" ]
         ]
+
+
+players : Model -> Html Msg
+players model =
+    div [ class "players" ] (List.map player model.players)
+
+
+player : String -> Html msg
+player msg =
+    div [ class "player" ] [ text msg ]

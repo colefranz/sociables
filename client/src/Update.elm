@@ -1,7 +1,7 @@
 module Update exposing (..)
 
 import Msgs exposing (..)
-import Model exposing (Setup, Model)
+import Model exposing (Model)
 import RulesModel exposing (Rule)
 import CardModel exposing (blankCard, Card)
 
@@ -10,24 +10,17 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg oldModel =
     case msg of
         AddPlayerInputChange newInput ->
-            let
-                oldSetup =
-                    oldModel.setup
-
-                newSetup =
-                    { oldSetup | input = newInput }
-            in
-                { oldModel | setup = newSetup } ! []
+            { oldModel | playerInput = newInput } ! []
 
         AddPlayer ->
             let
-                oldSetup =
-                    oldModel.setup
+                newInput =
+                    ""
 
-                newSetup =
-                    { oldSetup | input = "", players = oldSetup.players ++ [ oldSetup.input ] }
+                newPlayers =
+                    oldModel.players ++ [ oldModel.playerInput ]
             in
-                { oldModel | setup = newSetup } ! []
+                { oldModel | playerInput = newInput, players = newPlayers } ! []
 
         DrawCard ->
             let

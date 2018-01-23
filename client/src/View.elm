@@ -5,7 +5,7 @@ import Html.Attributes exposing (..)
 import Model exposing (Model)
 import Msgs exposing (..)
 import RulesView exposing (rules)
-import SetupView exposing (playerSetup)
+import PlayersView exposing (addPlayerInput, players)
 import CardsView exposing (cards)
 
 
@@ -13,12 +13,7 @@ view : Model -> Html Msg
 view model =
     div [ id "elm-main" ]
         [ rules model
-        , playerSetup model.setup
-        , div [ class "players" ] (List.map viewMessage model.setup.players)
+        , addPlayerInput model
+        , players model
         , cards model
         ]
-
-
-viewMessage : String -> Html msg
-viewMessage msg =
-    div [ class "player" ] [ text msg ]

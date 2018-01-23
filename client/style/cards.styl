@@ -1,0 +1,25 @@
+.cards
+    display: flex
+    .deck
+        position: relative
+        width: 50px
+        height: 100px
+
+        &.facedown
+            .card
+                transform: rotateY(180deg)
+                transform-style: preserve-3d
+                p
+                    display: none
+
+    .card
+        position: absolute
+        display: inline-block
+        width: 50px
+        height: 100px
+        background: $pink
+        color: $gray
+        line-height: 100px
+        text-align: center
+        user-select: none
+        vertical-align: top

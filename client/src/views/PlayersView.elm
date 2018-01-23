@@ -30,9 +30,16 @@ addPlayerInput model =
 
 players : Model -> Html Msg
 players model =
-    div [ class "players" ] (List.map player model.players)
+    div [ class "players" ] (List.indexedMap (player model.players.turn) model.players.list)
 
 
-player : String -> Html msg
-player msg =
-    div [ class "player" ] [ text msg ]
+player : Int -> Int -> String -> Html msg
+player turnIndex playerIndex playerName =
+    let
+        className =
+            if turnIndex == playerIndex then
+                "player is-turn"
+            else
+                "player"
+    in
+        div [ class className ] [ text playerName ]

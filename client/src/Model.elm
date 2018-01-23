@@ -2,11 +2,12 @@ module Model exposing (..)
 
 import CardModel exposing (..)
 import RulesModel exposing (initialRulesList, Rule)
+import PlayerModel exposing (initialPlayers, Players)
 
 
 type alias Model =
     { playerInput : String
-    , players : List String
+    , players : Players
     , cards : List Card
     , discards : List Card
     , rules : List Rule
@@ -16,7 +17,7 @@ type alias Model =
 initialModel : Model
 initialModel =
     { playerInput = ""
-    , players = []
+    , players = initialPlayers
     , cards = deckOfCards
     , discards = []
     , rules = initialRulesList

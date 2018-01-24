@@ -1,25 +1,63 @@
+$card-height = 100px
+$card-width = 70px
+$animation-spacing = 20px
+
 .cards
-    display: flex
+    height: $card-height
+
     .deck
         position: relative
-        width: 50px
-        height: 100px
-
-        &.facedown
-            .card
-                transform: rotateY(180deg)
-                transform-style: preserve-3d
-                p
-                    display: none
-
-    .card
-        position: absolute
         display: inline-block
-        width: 50px
+        width: $card-width
+        margin: 10px
         height: 100px
-        background: $pink
-        color: $gray
-        line-height: 100px
-        text-align: center
-        user-select: none
-        vertical-align: top
+        overflow: visible
+
+        &.faceup
+            .card
+                animation: 1s cardFlip ease
+                transform: rotateY(180deg);
+
+        .card
+            position: absolute
+            display: inline-block
+            width: $card-width
+            height: $card-height
+            border-radius: 5px
+            background: $pink
+            color: $gray
+            line-height: $card-height
+            text-align: center
+            user-select: none
+            vertical-align: top
+            transform-style: preserve-3d
+
+            .card-side
+                position: absolute
+                width: 100%
+                height: 100%
+                backface-visibility: hidden
+
+                &.back
+                    line-height: 25px
+                    transform: rotateY(0deg)
+
+                &.front
+                    line-height: 25px
+                    transform: rotateY(180deg)
+
+@keyframes cardFlip {
+    0% {
+        transform: rotateY(0deg)
+        left: -($card-width + $animation-spacing)
+        box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    }
+    50% {
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+    100% {
+        transform: rotateY(180deg)
+        left: 0px
+        box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+    }
+}

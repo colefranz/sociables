@@ -10,7 +10,7 @@ import Msgs exposing (..)
 
 addPlayerInput : Model -> Html Msg
 addPlayerInput model =
-    div [ class "player-setup" ]
+    div [ class "add-player" ]
         [ input
             [ type_ "text"
             , value model.playerInput
@@ -30,11 +30,11 @@ addPlayerInput model =
 
 players : Model -> Html Msg
 players model =
-    div [ class "players" ] (List.indexedMap (player model.players.turn) model.players.list)
+    div [ class "players" ] (List.indexedMap (player (List.length model.players.list) model.players.turn) model.players.list)
 
 
-player : Int -> Int -> String -> Html msg
-player turnIndex playerIndex playerName =
+player : Int -> Int -> Int -> String -> Html msg
+player numberOfPlayers turnIndex playerIndex playerName =
     let
         className =
             if turnIndex == playerIndex then
@@ -42,4 +42,52 @@ player turnIndex playerIndex playerName =
             else
                 "player"
     in
-        div [ class className ] [ text playerName ]
+        div [ class className, (getPlayerStyle numberOfPlayers playerIndex) ] [ text playerName ]
+
+
+getPlayerStyle : Int -> Int -> Attribute msg
+getPlayerStyle numberOfPlayers index =
+    let
+        rads =
+            ((toFloat index) / (toFloat numberOfPlayers)) * 2 * pi
+
+        radius =
+            toFloat 230
+
+        xOffset =
+            cos (rads)
+
+        yOffset =
+            sin (rads)
+    in
+        style
+            [ ( "position", "absolute" )
+            , ( "left", (offsetAndCenter xOffset playerRadius radius) )
+            , ( "top", (offsetAndCenter yOffset playerRadius radius) )
+            , ( "width", (asStringWithPixels playerRadius) )
+            , ( "height", (asStringWithPixels playerRadius) )
+            , ( "line-height", (asStringWithPixels playerRadius) )
+            , ( "border-radius", (asStringWithPixels (playerRadius / 2)) )
+            ]
+
+
+offsetAndCenter : Float -> Float -> Float -> String
+offsetAndCenter offsetPercent elementSize circleRadius =
+    let
+        elementOffset =
+            elementSize / 2
+
+        offset =
+            (toString ((offsetPercent * circleRadius) - elementOffset)) ++ "px"
+    in
+        "calc(50% + " ++ offset ++ ")"
+
+
+playerRadius : Float
+playerRadius =
+    100
+
+
+asStringWithPixels : Float -> String
+asStringWithPixels num =
+    (toString num) ++ "px"

@@ -59,7 +59,7 @@ pixel value =
         valueAsFloat =
             toFloat value
 
-        quartered =
+        eighth =
             valueAsFloat / 8
     in
-        toString (quartered) ++ "px"
+        toString (eighth) ++ "px"

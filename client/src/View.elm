@@ -13,7 +13,10 @@ view : Model -> Html Msg
 view model =
     div [ id "elm-main" ]
         [ rules model
-        , addPlayerInput model
-        , players model
-        , cards model
+        , div
+            [ id "sitting-area" ]
+            [ addPlayerInput model
+            , players model
+            , cards model
+            ]
         ]

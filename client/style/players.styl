@@ -1,12 +1,18 @@
 .players
     .player
+        // styled in PlayersView in order to position absolutely in a circle
+        // around the cards
         position: relative
         margin: 0px
         padding: 5px
         left: 5px
+        background: $gray
+        display: flex
+        align-items: center
+        justify-content: center
 
         &.is-turn
-            background: $gray
+            background: $mist
             // &:before
             //     position: absolute
             //     content: ">"

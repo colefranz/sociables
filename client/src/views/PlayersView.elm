@@ -42,7 +42,11 @@ player numberOfPlayers turnIndex playerIndex playerName =
             else
                 "player"
     in
-        div [ class className, (getPlayerStyle numberOfPlayers playerIndex) ] [ text playerName ]
+        div
+            [ class className, (getPlayerStyle numberOfPlayers playerIndex) ]
+            [ span [] [ text playerName ]
+            , span [ class "drawing" ] [ text "Drawing" ]
+            ]
 
 
 getPlayerStyle : Int -> Int -> Attribute msg
@@ -66,7 +70,6 @@ getPlayerStyle numberOfPlayers index =
             , ( "top", (offsetAndCenter yOffset playerRadius radius) )
             , ( "width", (asStringWithPixels playerRadius) )
             , ( "height", (asStringWithPixels playerRadius) )
-            , ( "line-height", (asStringWithPixels playerRadius) )
             , ( "border-radius", (asStringWithPixels (playerRadius / 2)) )
             ]
 

@@ -10,10 +10,27 @@
         display: flex
         align-items: center
         justify-content: center
+        flex-direction: column
+
+        .drawing
+            display: none
+            animation: none
 
         &.is-turn
             background: $mist
-            // &:before
-            //     position: absolute
-            //     content: ">"
-            //     left: 0px
+
+            .drawing
+                display: block
+                animation: blinking 1s linear alternate infinite
+
+
+@keyframes blinking {
+    from {
+        opacity: 0
+        visibility: 0
+    }
+    to {
+        opacity: 1
+        visibility: 1
+    }
+}

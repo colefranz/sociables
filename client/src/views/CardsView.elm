@@ -30,8 +30,15 @@ viewCard msg card =
 cardFront : Card -> Html Msg
 cardFront card =
     div [ class ("card-side front " ++ card.suit) ]
-        [ p [] [ text (getFaceName card.face) ]
+        [ faceText card "left"
+        , div [ class "face-icon" ] []
+        , faceText card "right"
         ]
+
+
+faceText : Card -> String -> Html Msg
+faceText card className =
+    p [ class className ] [ text (getFaceName card.face) ]
 
 
 deckStyle : List Card -> Attribute Msg

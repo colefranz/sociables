@@ -1,9 +1,9 @@
 module View exposing (view)
 
 import Html exposing (..)
-import Html.Attributes exposing (..)
+import Html.Attributes exposing (id)
 import Model exposing (Model)
-import Msgs exposing (..)
+import Msgs exposing (Msg)
 import RulesView exposing (rules)
 import PlayersView exposing (addPlayerInput, players)
 import CardsView exposing (cards)

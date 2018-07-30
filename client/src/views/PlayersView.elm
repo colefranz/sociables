@@ -33,7 +33,7 @@ players model =
     div [ class "players" ] (List.indexedMap (player (List.length model.players.list) model.players.turn) model.players.list)
 
 
-player : Int -> Int -> Int -> String -> Html msg
+player : Int -> Int -> Int -> String -> Html Msg
 player numberOfPlayers turnIndex playerIndex playerName =
     let
         className =
@@ -43,7 +43,10 @@ player numberOfPlayers turnIndex playerIndex playerName =
                 "player"
     in
         div
-            [ class className, (getPlayerStyle numberOfPlayers playerIndex) ]
+            [ class className
+            , onClick (SwapPlayer playerIndex)
+            , (getPlayerStyle numberOfPlayers playerIndex)
+            ]
             [ span [ class "player-name" ] [ text playerName ]
             , span [ class "drawing" ] [ text "Drawing" ]
             ]

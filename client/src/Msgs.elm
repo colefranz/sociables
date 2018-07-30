@@ -9,3 +9,4 @@ type Msg
     | DrawCard
     | NoOp
     | SetCards (List Card)
+    | SwapPlayer Int

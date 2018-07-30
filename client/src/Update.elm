@@ -4,7 +4,7 @@ import Msgs exposing (..)
 import Model exposing (Model)
 import RulesModel exposing (Rule)
 import CardModel exposing (blankCard, Card)
-import PlayerModel exposing (addPlayer, playersAfterDraw)
+import PlayerModel exposing (addPlayer, playersAfterDraw, swapPlayers)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -53,6 +53,13 @@ update msg oldModel =
 
         SetCards cards ->
             { oldModel | cards = cards } ! []
+
+        SwapPlayer newPlayer ->
+            let
+                newPlayers =
+                    swapPlayers oldModel.players newPlayer
+            in
+                { oldModel | players = newPlayers } ! []
 
 
 setActiveRule : Card -> Int -> Rule -> Rule

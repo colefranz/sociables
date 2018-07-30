@@ -30,17 +30,18 @@ addPlayerInput model =
 
 players : Model -> Html Msg
 players model =
-    div [ class "players" ] (List.indexedMap (player (List.length model.players.list) model.players.turn) model.players.list)
-
-
-player : Int -> Int -> Int -> String -> Html Msg
-player numberOfPlayers turnIndex playerIndex playerName =
     let
-        className =
-            if turnIndex == playerIndex then
-                "player is-turn"
-            else
-                "player"
+        numberOfPlayers = List.length model.players.list
+        turnIndex = model.players.turn
+        swapIndex = model.players.playerToSwap
+    in
+        div [ class "players" ] (List.indexedMap (player numberOfPlayers turnIndex swapIndex) model.players.list)
+
+
+player : Int -> Int -> Int -> Int -> String -> Html Msg
+player numberOfPlayers turnIndex swapIndex playerIndex playerName =
+    let
+        className = "player" |> addTurnClass turnIndex playerIndex |> addSwapClass swapIndex playerIndex
     in
         div
             [ class className
@@ -50,6 +51,22 @@ player numberOfPlayers turnIndex playerIndex playerName =
             [ span [ class "player-name" ] [ text playerName ]
             , span [ class "drawing" ] [ text "Drawing" ]
             ]
+
+
+addTurnClass : Int -> Int -> String -> String
+addTurnClass turnIndex playerIndex class =
+    if turnIndex == playerIndex then
+        class ++ " is-turn"
+    else
+        class
+
+
+addSwapClass : Int -> Int -> String -> String
+addSwapClass swapIndex playerIndex class =
+    if swapIndex == playerIndex then
+        class ++ " is-swapping"
+    else
+        class
 
 
 getPlayerStyle : Int -> Int -> Attribute msg

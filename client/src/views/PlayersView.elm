@@ -44,7 +44,7 @@ player numberOfPlayers turnIndex playerIndex playerName =
     in
         div
             [ class className, (getPlayerStyle numberOfPlayers playerIndex) ]
-            [ span [] [ text playerName ]
+            [ span [ class "player-name" ] [ text playerName ]
             , span [ class "drawing" ] [ text "Drawing" ]
             ]
 

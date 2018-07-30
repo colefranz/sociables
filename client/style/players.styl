@@ -12,17 +12,18 @@
         justify-content: center
         flex-direction: column
 
+        .player-name
+            text-transform: capitalize
+
         .drawing
             display: none
-            animation: none
 
         &.is-turn
             background: $mist
+            border: 1px solid $gray
 
             .drawing
                 display: block
-                animation: blinking 1s linear alternate infinite
-
 
 @keyframes blinking {
     from {

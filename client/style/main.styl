@@ -56,8 +56,6 @@ body, html
     line-height: 30px
     text-align: center
     cursor: pointer
-    border: 1px solid $accent
-    border-left: none
 
 input
     background: $primary
@@ -66,8 +64,6 @@ input
     box-shadow: none
     border: none
     padding: 5px
-    border: 1px solid $accent
-    border-right: none
 
     &::-ms-clear
         display: none
@@ -76,12 +72,22 @@ input
         outline: none
 
     &::placeholder
-        color: $off
         opacity: 1
+        color: $off
+
     &:-ms-input-placeholder
         color: $off
+
     &::-ms-input-placeholder
         color: $off
+
+    &:focus
+        border: 1px solid $accent
+        border-right: none
+
+        &+.button
+            border: 1px solid $accent
+            border-left: none
 
 .left
     text-align: left

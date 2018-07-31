@@ -29,8 +29,8 @@ $animation-spacing = 20px
             width: $card-width
             height: $card-height
             border-radius: 5px
-            background: $pink
-            color: $gray
+            background: $primary
+            color: $dark
             line-height: $card-height
             text-align: center
             user-select: none
@@ -49,6 +49,12 @@ $animation-spacing = 20px
                 &.back
                     line-height: 25px
                     transform: rotateY(0deg)
+                    background-image: linear-gradient(45deg, $accent 25%, transparent 25%),
+                                      linear-gradient(-45deg, $accent 25%, transparent 25%),
+                                      linear-gradient(45deg, transparent 75%, $accent 75%),
+                                      linear-gradient(-45deg, transparent 75%, $accent 75%);
+                    background-size: 8px 8px;
+                    background-position: 0 0, 0 3px, 3px -3px, -4px 0px;
 
                 &.front
                     line-height: 25px

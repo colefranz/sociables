@@ -23,7 +23,7 @@ viewCard msg card =
         , onClick msg
         ]
         [ cardFront card
-        , div [ class "card-side back" ] [ p [] [ text "Draw Me!" ] ]
+        , div [ class "card-side back" ] [ p [] [] ]
         ]
 
 
@@ -57,7 +57,7 @@ deckBoxShadow deck =
 
 boxShadow : ( Int, Card ) -> String -> String
 boxShadow ( index, card ) cumulativeShadow =
-    cumulativeShadow ++ ", " ++ (pixel index) ++ " " ++ (pixel index) ++ " " ++ "0px " ++ "#BCA0A4"
+    cumulativeShadow ++ ", " ++ (pixel index) ++ " " ++ (pixel index) ++ " " ++ "0px " ++ "#0F0F0F"
 
 
 pixel : Int -> String

@@ -36,6 +36,11 @@ possibleRules =
     ]
 
 
+
+-- add more rules
+-- add description to rules?
+
+
 initialRulesList : List Rule
 initialRulesList =
     List.map2 createRule enumFaceName possibleRules

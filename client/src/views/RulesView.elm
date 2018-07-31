@@ -9,7 +9,7 @@ import RulesModel exposing (Rule)
 
 rules : Model -> Html Msg
 rules model =
-    div [ class "rules" ]
+    div [ id "rules" ]
         [ h1 []
             [ text "Rules" ]
 

@@ -1,8 +1,8 @@
-$gray = #CBC0D3
-$mist = #DEE2FF
-$pink = #EFD3D7
-$blush = #FEEAFA
-$dark = #8E9AAF
+$primary = #6F7B8B
+$mist = #F0F3F8
+$off = #30343D
+$dark = #0F0F0F
+$accent = #F50016;
 
 *
     box-sizing: border-box
@@ -15,6 +15,8 @@ body, html
     left: 0
     padding: 0px
     margin: 0px
+    color: $mist
+    font-family: 'Roboto', sans-serif;
 
     &::after {
         content: ""
@@ -27,7 +29,6 @@ body, html
         position: absolute
         z-index: -1
         background-size: cover
-
     }
 
 #elm-main
@@ -42,26 +43,31 @@ body, html
     margin: auto
     max-width: 95%
     max-height: 95%
-    background: $blush
+    background: $off
     border-radius: 12px
     padding: 10px
+    box-shadow: 4px 4px 10px $dark, -4px -4px 10px $dark;
 
 .button
-    background: $mist
-    color: $dark
+    background: $primary
+    color: $accent
     width: 30px
     height: 30px
     line-height: 30px
     text-align: center
     cursor: pointer
+    border: 1px solid $accent
+    border-left: none
 
 input
-    background: $mist
+    background: $primary
     color: $dark
     outline: none
     box-shadow: none
     border: none
     padding: 5px
+    border: 1px solid $accent
+    border-right: none
 
     &::-ms-clear
         display: none

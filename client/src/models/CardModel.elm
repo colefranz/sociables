@@ -1,6 +1,7 @@
 module CardModel exposing (..)
 
 import Array exposing (..)
+import Helpers exposing (findIndex)
 
 
 type alias FaceName =
@@ -76,7 +77,30 @@ getFaceName face =
             Nothing ->
                 ""
 
+getFace : FaceName -> Face
+getFace faceName =
+    let
+        maybeFace =
+            findIndex ((==) faceName) enumFaceName
+    in
+        case maybeFace of
+            Just face ->
+                face
+
+            Nothing ->
+                0
+
 
 blankCard : Card
 blankCard =
     Card -1 ""
+
+
+getTopCard : List Card -> Card
+getTopCard cards =
+    case (List.head cards) of
+        Just card ->
+            card
+
+        Nothing ->
+            blankCard

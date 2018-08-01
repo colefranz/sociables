@@ -6,6 +6,7 @@ import Html.Events exposing (..)
 import Html.Attributes exposing (..)
 import EventHelpers exposing (onEnter)
 import Msgs exposing (..)
+import PlayerModel exposing (Player)
 
 
 addPlayerInput : Model -> Html Msg
@@ -38,8 +39,8 @@ players model =
         div [ class "players" ] (List.indexedMap (player numberOfPlayers turnIndex swapIndex) model.players.list)
 
 
-player : Int -> Int -> Int -> Int -> String -> Html Msg
-player numberOfPlayers turnIndex swapIndex playerIndex playerName =
+player : Int -> Int -> Int -> Int -> Player -> Html Msg
+player numberOfPlayers turnIndex swapIndex playerIndex player =
     let
         className = "player" |> addTurnClass turnIndex playerIndex |> addSwapClass swapIndex playerIndex
     in
@@ -48,7 +49,7 @@ player numberOfPlayers turnIndex swapIndex playerIndex playerName =
             , onClick (SwapPlayer playerIndex)
             , (getPlayerStyle numberOfPlayers playerIndex)
             ]
-            [ span [ class "player-name" ] [ text playerName ]
+            [ span [ class "player-name" ] [ text player.name ]
             , span [ class "drawing" ] [ text "Drawing" ]
             ]
 

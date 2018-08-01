@@ -1,6 +1,6 @@
 module RulesModel exposing (..)
 
-import CardModel exposing (enumFaceName, FaceName)
+import CardModel exposing (Card, enumFaceName, getFace, FaceName)
 
 
 type alias RuleDescription =
@@ -11,6 +11,7 @@ type alias Rule =
     { cardFace : FaceName
     , description : String
     , active : Bool
+    , persistent : Bool
     }
 
 
@@ -35,10 +36,12 @@ possibleRules =
     -- no idea if this makes picking rules easy. probably not..
     ]
 
-
-
 -- add more rules
 -- add description to rules?
+
+emptyRule : Rule
+emptyRule =
+    createRule "" ""
 
 
 initialRulesList : List Rule
@@ -48,4 +51,23 @@ initialRulesList =
 
 createRule : FaceName -> RuleDescription -> Rule
 createRule faceName ruleDescription =
-    Rule faceName ruleDescription False
+    Rule faceName ruleDescription False False
+
+
+getRuleForCard : Card -> List Rule -> Rule
+getRuleForCard card rules =
+    let
+        maybeRule =
+            List.head (List.filter (cardMatchesRule card) rules)
+    in
+        case maybeRule of
+            Just rule ->
+                rule
+
+            Nothing ->
+                emptyRule
+
+
+cardMatchesRule : Card -> Rule -> Bool
+cardMatchesRule card rule =
+    (getFace rule.cardFace) == card.face

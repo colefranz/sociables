@@ -1,10 +1,13 @@
 module PlayerModel exposing (..)
 
-import Array exposing (get, fromList)
-
+import CardModel exposing (blankCard, Card)
+import Array exposing (..)
+import Helpers exposing (findIndex)
 
 type alias Player =
-    String
+    { name : String
+    , heldCards : List Card
+    }
 
 
 type alias Players =
@@ -25,22 +28,46 @@ initialPlayers =
 
 emptyPlayer : Player
 emptyPlayer =
-    ""
+    Player "" []
+
+playersAfterDrawWithPersistentCard : Card -> Players -> Players
+playersAfterDrawWithPersistentCard drawnCard players =
+    let
+        playersWithDrawnCardUpdated = updatePlayersWithNewAttachedCard drawnCard players
+    in
+        playersAfterDraw playersWithDrawnCardUpdated
+
 
 
 playersAfterDraw : Players -> Players
 playersAfterDraw players =
-    if players.turn == List.length players.list - 1 then
-        { players | turn = 0 }
-    else
-        { players | turn = players.turn + 1 }
+    let
+        newPlayers =
+            if players.turn == List.length players.list - 1 then
+                { players | turn = 0 }
+            else
+                { players | turn = players.turn + 1 }
+
+    in
+        players
+
+
+updatePlayersWithNewAttachedCard : Card -> Players -> Players
+updatePlayersWithNewAttachedCard drawnCard players =
+    let
+        playerWhoDrew = getPlayer players.list players.turn
+        playerWhoHadCard = playerWithCard players.list drawnCard
+        -- cole you need to hold the index of the player who had the card and then
+        -- update the card list for each players and then use swap players to put them back in
+    in
+        players
 
 
 addPlayer : Players -> String -> Players
 addPlayer oldPlayers newPlayer =
     let
         newPlayerList =
-            oldPlayers.list ++ [ newPlayer ]
+            oldPlayers.list ++ [ Player newPlayer [] ]
 
         newPlayers =
             { oldPlayers | list = newPlayerList }
@@ -76,19 +103,39 @@ swapPlayersInList oldPlayersList swapIndex1 swapIndex2 =
             getPlayer oldPlayersList swapIndex2
 
         partiallySwappedPlayerList =
-            List.indexedMap (swapPlayer swapIndex2 firstName) oldPlayersList
+            List.indexedMap (replacePlayer swapIndex2 firstName) oldPlayersList
 
         swappedPlayerList =
-            List.indexedMap (swapPlayer swapIndex1 secondName) partiallySwappedPlayerList
+            List.indexedMap (replacePlayer swapIndex1 secondName) partiallySwappedPlayerList
     in
         swappedPlayerList
+
+playerWithCard : List Player -> Card -> Player
+playerWithCard playerList drawnCard =
+    let
+        maybePlayerIndex =
+            findIndex (playerHasCard drawnCard) playerList
+        playerIndex =
+            case maybePlayerIndex of
+                Just index ->
+                    index
+
+                Nothing ->
+                    -1
+    in
+        getPlayer playerList playerIndex
+
+
+playerHasCard : Card -> Player -> Bool
+playerHasCard drawnCard player =
+    List.member drawnCard player.heldCards
 
 
 getPlayer : List Player -> Int -> Player
 getPlayer playerList playerIndex =
     let
         maybePlayer =
-            get playerIndex (fromList playerList)
+            Array.get playerIndex (Array.fromList playerList)
     in
         case maybePlayer of
             Just player ->
@@ -98,12 +145,12 @@ getPlayer playerList playerIndex =
                 emptyPlayer
 
 
-swapPlayer : Int -> Player -> Int -> Player -> Player
-swapPlayer playerIndexToReplace playerToReplace playerIndexToCompare playerToCompare =
-    if playerIndexToReplace == playerIndexToCompare then
-        playerToReplace
+replacePlayer : Int -> Player -> Int -> Player -> Player
+replacePlayer replacerIndex replacer replaceyIndex replacey =
+    if replacerIndex == replaceyIndex then
+        replacer
     else
-        playerToCompare
+        replacey
 
 
 

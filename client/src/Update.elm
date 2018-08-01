@@ -2,9 +2,9 @@ module Update exposing (..)
 
 import Msgs exposing (..)
 import Model exposing (Model)
-import RulesModel exposing (Rule)
-import CardModel exposing (blankCard, Card)
-import PlayerModel exposing (addPlayer, playersAfterDraw, swapPlayers)
+import RulesModel exposing (getRuleForCard, Rule)
+import CardModel exposing (blankCard, Card, getTopCard)
+import PlayerModel exposing (..)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -25,23 +25,23 @@ update msg oldModel =
 
         DrawCard ->
             let
-                -- pull cards functionality into the model?
                 newCards =
                     List.drop 1 oldModel.cards
 
-                newDiscards =
-                    oldModel.discards ++ List.take 1 oldModel.cards
-
                 drawnCard =
-                    case (List.head oldModel.cards) of
-                        Just card ->
-                            card
+                    getTopCard oldModel.cards
 
-                        Nothing ->
-                            blankCard
+                newDiscards =
+                    oldModel.discards ++ [drawnCard]
+
+                currentRule =
+                    getRuleForCard drawnCard oldModel.rules
 
                 newPlayers =
-                    playersAfterDraw oldModel.players
+                    if currentRule.persistent == True then
+                        playersAfterDrawWithPersistentCard drawnCard oldModel.players
+                    else
+                        playersAfterDraw oldModel.players
 
                 newRules =
                     List.indexedMap (setActiveRule drawnCard) oldModel.rules

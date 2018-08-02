@@ -77,6 +77,7 @@ getFaceName face =
             Nothing ->
                 ""
 
+
 getFace : FaceName -> Face
 getFace faceName =
     let
@@ -104,3 +105,37 @@ getTopCard cards =
 
         Nothing ->
             blankCard
+
+
+addHeldCard : List Card -> Card -> List Card
+addHeldCard cards drawnCard =
+    let
+        cardFaces =
+            List.map (\card -> card.face) cards
+    in
+        if List.member drawnCard.face cardFaces then
+            cards
+        else
+            cards ++ [ drawnCard ]
+
+
+removeHeldCard : List Card -> Card -> List Card
+removeHeldCard cards drawnCard =
+    let
+        cardFaces =
+            List.map (\card -> card.face) cards
+
+        maybeIndexOfCard =
+            findIndex (facesMatch drawnCard.face) cardFaces
+    in
+        case maybeIndexOfCard of
+            Just index ->
+                (List.take index cards) ++ (List.drop (index + 1) cards)
+
+            Nothing ->
+                cards
+
+
+facesMatch : Face -> Face -> Bool
+facesMatch face faceToCheck =
+    face == faceToCheck

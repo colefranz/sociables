@@ -51,7 +51,7 @@ initialRulesList =
 
 createRule : FaceName -> RuleDescription -> Rule
 createRule faceName ruleDescription =
-    Rule faceName ruleDescription False False
+    Rule faceName ruleDescription False True -- temp, set all cards to persistent
 
 
 getRuleForCard : Card -> List Rule -> Rule

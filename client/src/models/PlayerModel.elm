@@ -1,8 +1,9 @@
 module PlayerModel exposing (..)
 
-import CardModel exposing (blankCard, Card)
+import CardModel exposing (..)
 import Array exposing (..)
 import Helpers exposing (findIndex)
+
 
 type alias Player =
     { name : String
@@ -30,13 +31,14 @@ emptyPlayer : Player
 emptyPlayer =
     Player "" []
 
+
 playersAfterDrawWithPersistentCard : Card -> Players -> Players
 playersAfterDrawWithPersistentCard drawnCard players =
     let
-        playersWithDrawnCardUpdated = updatePlayersWithNewAttachedCard drawnCard players
+        playersWithDrawnCardUpdated =
+            updatePlayersWithNewAttachedCard drawnCard players
     in
         playersAfterDraw playersWithDrawnCardUpdated
-
 
 
 playersAfterDraw : Players -> Players
@@ -47,20 +49,50 @@ playersAfterDraw players =
                 { players | turn = 0 }
             else
                 { players | turn = players.turn + 1 }
-
     in
-        players
+        newPlayers
 
 
 updatePlayersWithNewAttachedCard : Card -> Players -> Players
 updatePlayersWithNewAttachedCard drawnCard players =
     let
-        playerWhoDrew = getPlayer players.list players.turn
-        playerWhoHadCard = playerWithCard players.list drawnCard
-        -- cole you need to hold the index of the player who had the card and then
-        -- update the card list for each players and then use swap players to put them back in
+        indexOfPlayerWhoDrew =
+            players.turn
+
+        playerWhoDrew =
+            getPlayer players.list players.turn
+
+        updatedPlayerWhoDrew =
+            { playerWhoDrew | heldCards = (addHeldCard playerWhoDrew.heldCards drawnCard) }
+
+        updatedPlayersList =
+            List.indexedMap (replacePlayer players.turn updatedPlayerWhoDrew) players.list
+
+        maybeIndexOfPlayerWhoHadCard =
+            findIndex (playerHasCard drawnCard) players.list
+
+        updatedPlayerList =
+            case maybeIndexOfPlayerWhoHadCard of
+                Just index ->
+                    -- DEFECT NOT WORKING
+                    removeCardFromPlayerAndReplaceInList index drawnCard updatedPlayersList
+
+                Nothing ->
+                    updatedPlayersList
     in
-        players
+        { players | list = updatedPlayersList }
+
+
+removeCardFromPlayerAndReplaceInList : Int -> Card -> List Player -> List Player
+removeCardFromPlayerAndReplaceInList indexOfPlayerWhoDrew drawnCard playerList =
+    let
+        playerWhoHadCard =
+            getPlayer playerList indexOfPlayerWhoDrew
+
+        updatedPlayerWhoHadCard =
+            { playerWhoHadCard | heldCards = (removeHeldCard playerWhoHadCard.heldCards drawnCard) }
+    in
+        List.indexedMap (replacePlayer indexOfPlayerWhoDrew updatedPlayerWhoHadCard) playerList
 
 
 addPlayer : Players -> String -> Players
@@ -96,34 +128,19 @@ swapPlayers oldPlayers newPlayer =
 swapPlayersInList : List Player -> Int -> Int -> List Player
 swapPlayersInList oldPlayersList swapIndex1 swapIndex2 =
     let
-        firstName =
+        firstPlayer =
             getPlayer oldPlayersList swapIndex1
 
-        secondName =
+        secondPlayer =
             getPlayer oldPlayersList swapIndex2
 
         partiallySwappedPlayerList =
-            List.indexedMap (replacePlayer swapIndex2 firstName) oldPlayersList
+            List.indexedMap (replacePlayer swapIndex2 firstPlayer) oldPlayersList
 
         swappedPlayerList =
-            List.indexedMap (replacePlayer swapIndex1 secondName) partiallySwappedPlayerList
+            List.indexedMap (replacePlayer swapIndex1 secondPlayer) partiallySwappedPlayerList
     in
         swappedPlayerList
-
-playerWithCard : List Player -> Card -> Player
-playerWithCard playerList drawnCard =
-    let
-        maybePlayerIndex =
-            findIndex (playerHasCard drawnCard) playerList
-        playerIndex =
-            case maybePlayerIndex of
-                Just index ->
-                    index
-
-                Nothing ->
-                    -1
-    in
-        getPlayer playerList playerIndex
 
 
 playerHasCard : Card -> Player -> Bool
